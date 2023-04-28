@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  html {
+    font-family: inter,Proxima Nova, system-ui, sans-serif;
+    font-size:12px;
+  }
+
+  }
+
+
+
+#card-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+#card-scrollbar::-webkit-scrollbar-track {
+  background: #041267; 
+}
+ 
+/* Handle */
+#card-scrollbar::-webkit-scrollbar-thumb {
+  background: #0620c6; 
+  border-radius:15px
+}
+
+/* Handle on hover */
+#card-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0620c6; 
+}
+
+#messageBoxScrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+#messageBoxScrollbar::-webkit-scrollbar-track {
+  background: #041267; 
+}
+ 
+/* Handle */
+#messageBoxScrollbar::-webkit-scrollbar-thumb {
+  background: #0620c6; 
+  border-radius:15px
+}
+
+/* Handle on hover */
+#messageBoxScrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0620c6; 
+}
+#room_users_scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height:10px;
+}
+
+/* Track */
+#room_users_scrollbar::-webkit-scrollbar-track {
+  background: #041267; 
+}
+ 
+/* Handle */
+#room_users_scrollbar::-webkit-scrollbar-thumb {
+  background: #0620c6; 
+  border-radius:15px
+}
+
+/* Handle on hover */
+#room_users_scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0620c6; 
+}
+
+
+aside.EmojiPickerReact.epr-main{
+background:#041c7c
+
+}
+
+aside.EmojiPickerReact.epr-main .epr-body .epr-emoji-list .epr-emoji-category-label {
+display:none
+}
+
+aside.EmojiPickerReact.epr-main {
+border-radius:0px;
+}
+
+
+
+
+aside.EmojiPickerReact.epr-main .epr-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+aside.EmojiPickerReact.epr-main .epr-body::-webkit-scrollbar-track {
+  background: #041267; 
+}
+ 
+/* Handle */
+aside.EmojiPickerReact.epr-main .epr-body::-webkit-scrollbar-thumb {
+  background: #0620c6; 
+  border-radius:15px
+}
+
+/* Handle on hover */
+aside.EmojiPickerReact.epr-main .epr-body::-webkit-scrollbar-thumb:hover {
+  background: #0620c6; 
+}
+
+.Flex.epr-preview.FlexRow{
+  display:none;
+}
+img.__EmojiPicker__.epr-emoji-img {
+  width:30px;
+  height:30px;
+}
+
+button.epr-btn.epr-emoji.epr-visible{
+  width:30px;
+  height:26px;
+
+}
