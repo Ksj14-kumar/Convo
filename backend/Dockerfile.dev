@@ -1,0 +1,21 @@
+FROM node:16-alpine3.17 
+
+WORKDIR /server/
+
+# RUN apt-get update && apt-get install -y sudo && apt-get install -y curl
+# RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+
+COPY . /server
+
+RUN npm install
+
+EXPOSE 8080
+
+ENV URI="mongodb+srv://convo:2VfCdTQxFKQhzlsz@cluster0.kk7uwsh.mongodb.net/?retryWrites=true&w=majority" \
+PORT="8080" \
+GOOGLE_CLIENT_ID="383953439865-8r0qsjorbce278b1g0vpnb036p9mhodo.apps.googleusercontent.com" \
+GOOGLE_CLIENT_SECRET="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" \
+SessionSecret="d4a389be58cede97518f92398dba7e1eafaea6aac5d5f1111ce51728f388042e" \
+UI="http://localhost:5173" 
+
+CMD ["npm","run","dev"]

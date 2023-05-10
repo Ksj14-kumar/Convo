@@ -9,12 +9,12 @@ export default defineConfig({
       BACKEND_URL:"http://localhost:8080"
     }
   },
-  // server:{
-  //   proxy:{
-  //     "/api":{
-  //       target:"http//localhost:8080",
-  //       changeOrigin:true
-  //     }
-  //   }
-  // }
+  server:{
+    watch: {
+      usePolling: true,
+    },
+    host: true, // needed for the Docker Container port mapping to work
+    strictPort: true,
+    port: 5173
+  }
 })
