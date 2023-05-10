@@ -5,6 +5,7 @@ WORKDIR /api
 COPY . /api
 
 RUN npm install
+RUN apk update && apk add --no-cache mediasoup
 
 EXPOSE 8080
 

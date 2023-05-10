@@ -1,6 +1,6 @@
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
-const passport = require("passport")
-const User = require("../db/User.Schema")
+var GoogleStrategy = require("passport-google-oauth20").Strategy;
+const passport = require("passport");
+const User = require("../db/User.Schema");
 module.exports = () => {
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -9,11 +9,11 @@ module.exports = () => {
     passReqToCallback: true
   },
     function (req, accessToken, refreshToken, profile, done) {
-      console.log({ profile, refreshToken, accessToken })
+      console.log({ profile, refreshToken, accessToken });
       User.findOne({ email: profile._json.email.toLowerCase() })
         .then(async (newUser) => {
           if (newUser) {
-            return done(null, newUser)
+            return done(null, newUser);
           }
           else {
             const user = await new User({
@@ -26,42 +26,42 @@ module.exports = () => {
               verify: profile._json.verify,
               userId: Math.floor(Math.random() * 100000),
               createdAt: new Date(),
-            })
+            });
             user.save()
               .then(async () => {
-                const user = await User.findOne({ email: profile._json.email })
-                return done(null, user)
+                const user = await User.findOne({ email: profile._json.email });
+                return done(null, user);
               })
               .catch((err) => {
                 if (err) {
-                  console.log(err)
-                  console.log("user is not save")
-                  return done(null, false)
+                  console.log(err);
+                  console.log("user is not save");
+                  return done(null, false);
                 }
-              })
+              });
           }
         })
         .catch(err => {
           if (err) {
-            return done(null, false)
+            return done(null, false);
           }
-        })
+        });
     }
   ));
   passport.serializeUser(function (user, done) {
-    console.log({ user }, "serieal")
-    console.log("serielize")
+    console.log({ user }, "serieal");
+    console.log("serielize");
     done(null, user._id);
   });
   passport.deserializeUser(function (id, done) {
-    console.log({ id })
+    console.log({ id });
     User.findById({ _id: id })
       .then((user) => {
-        console.log({ user })
+        console.log({ user });
         done(null, user);
       })
       .catch(err => {
         done(null, false, { error: err });
-      })
+      });
   });
-}
+};

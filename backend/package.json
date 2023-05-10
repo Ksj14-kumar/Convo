@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon -L index.js"
+    "dev": "nodemon -L index.js",
+    "lint": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
+    "eslint": "^8.40.0",
     "nodemon": "^2.0.22"
   }
 }
