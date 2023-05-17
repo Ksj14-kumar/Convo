@@ -14,11 +14,12 @@ router.get("/success", isAuth, async (req, res) => {
         const date = user.createdAt.split(" ");
         const createdAt = date[2] + "/" + date[1] + "/" + date[3] + " " + date[4];
         const userInfo = {
-            name: user.name + " " + user.lname ? user.lname : "",
+            name: user.name ? user.name : "" + " " + user.lname ? user.lname : "",
             email: user.email,
             pic: user.pic,
             id: user.userId, createdAt
         };
+        console.log({ userInfo, user })
         return res.status(200).json(userInfo);
     } catch (err) {
         console.log({ err });

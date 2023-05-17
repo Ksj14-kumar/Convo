@@ -2,17 +2,24 @@ version: "2"
 
 services:
   api:
-    build: ./backend
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./backend
     ports:
       - "8080:8080"
-    volumes:
-      - /api_volume: /api
+    # volumes:
+    #   - /volumes: /api
   ui:
-    build: ./frontend
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
     ports:
       - "5173:5173"
-    volumes:
-      - /api_volume-ui: /api-ui
+    depends_on:
+      - api
 
-  volumes:
-    /volumes: /volumes
+    # volumes:
+    #   - /volumes: /api-ui
+
+  # volumes:
+  #   /volumes: /volumes

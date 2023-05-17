@@ -5,7 +5,8 @@ import Footer from '../Components/footer/Footer'
 import { Socket } from 'socket.io-client/build/esm/socket'
 import { useAppSelector } from '../Redux/store'
 import { roomType } from '../Redux/types'
-function Home({ socket }: { socket: Socket }) {
+import { RtpCapabilities } from 'mediasoup-client/lib/RtpParameters'
+function Home({ socket,setRTPInfo }: { socket: Socket,setRTPInfo:React.Dispatch<React.SetStateAction<RtpCapabilities>> }) {
     const [onInputChange, setOnInputchange] = useState<string>("")
     const [roomsFilterBySearch, setRoomFilterBySearch] = useState<roomType[]>([])
     const roomsList = useAppSelector(state => state.room.rooms)
@@ -25,7 +26,7 @@ function Home({ socket }: { socket: Socket }) {
         <>
             <Header />
             <Mid socket={socket} setOnInputchange={setOnInputchange} onInputChange={onInputChange} />
-            <Footer roomsFilterBySearch={roomsFilterBySearch} socket={socket} />
+            <Footer roomsFilterBySearch={roomsFilterBySearch} socket={socket} setRTPInfo={setRTPInfo} />
         </>
     )
 }

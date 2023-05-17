@@ -1,24 +1,32 @@
-import React from 'react'
+import { useEffect, useRef } from 'react'
 import { BsFillMicFill, BsMicMuteFill } from "react-icons/bs"
 import { userTypeInRoom } from '../../../Redux/types'
 import { IAgoraRTCRemoteUser } from 'agora-rtc-sdk-ng'
 import { AgoraVideoPlayer } from 'agora-rtc-react'
 type propType = {
-    item: IAgoraRTCRemoteUser,
+    item: MediaStreamTrack,
     onMicDisabledAndEnabled: () => void,
     mic: boolean
 }
 function User({ item, onMicDisabledAndEnabled, mic }: propType) {
+    const videoRef = useRef<HTMLVideoElement>(null)
+    useEffect(() => {
+        if (videoRef.current) {
+            console.log(item)
+            videoRef.current.srcObject = new MediaStream([item])
+        }
+    }, [item, videoRef])
 
-    const userImage= typeof item.uid ==="string" &&JSON.parse(item.uid)
+    // const userImage= typeof item.uid ==="string" &&JSON.parse(item.uid)
     return (
         <div className="user_profile bg-green-400 rounded-md relative text-[1.2rem]">
             <div className="image object-cover w-[8rem] rounded-md h-[8rem] flex justify-center items-center cursor-pointer flex-shrink-0">
-                {
+                {/* {
                     (item.hasVideo && item.videoTrack) ?
                         <AgoraVideoPlayer videoTrack={item.videoTrack} config={{ mirror: true, fit: "cover" }} className='w-full h-full rounded-md' /> :
                         <img src={userImage.pic} className='shrink-0 flex-shrink-0 object-cover w-full rounded-md h-full' alt="" />
-                }
+                } */}
+                <video className='w-full h-full' autoPlay controls ref={videoRef}></video>
             </div>
             <div className="mic absolute bottom-1 right-2 z-[2]">
                 <div className="button">

@@ -39,7 +39,7 @@ const authSlice = createSlice({
             state.pic = null
             state.userId = null
             localStorage.clear()
-        },
+        }
     }
 })
 const roomSlice = createSlice({
@@ -58,7 +58,7 @@ const roomSlice = createSlice({
                 state.rooms[findRoom].usersInRoom.splice(0, 0, action.payload)
             }
         },
-        removeCurrentUserFromRoom: (state, action: PayloadAction<Pick<userTypeInRoom,"userId" | "sid"> & { roomName: string }>) => {
+        removeCurrentUserFromRoom: (state, action: PayloadAction<Pick<userTypeInRoom, "userId" | "sid"> & { roomName: string }>) => {
             const findRoom = state.rooms.findIndex(room => room.roomFullName === action.payload.roomName)
             if (findRoom !== -1) {
                 const userIndexInRoom = state.rooms[findRoom].usersInRoom.findIndex(userIndex => userIndex.userId === action.payload.userId)
@@ -70,4 +70,4 @@ const roomSlice = createSlice({
 export const authReducer = authSlice.reducer
 export const roomSliceReducer = roomSlice.reducer
 export const { setInfo, logout } = authSlice.actions
-export const { addNewRoom, allRooms, addNewUserInRoom,removeCurrentUserFromRoom } = roomSlice.actions
+export const { addNewRoom, allRooms, addNewUserInRoom, removeCurrentUserFromRoom } = roomSlice.actions

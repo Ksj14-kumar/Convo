@@ -1,6 +1,18 @@
 class Socket_util {
     constructor() {
-        this.Rooms = [];
+        this.Rooms = [];   /* 
+        {roomFullName,
+            isAuther: {
+                email: email,
+                userId
+            },
+                usersInRoom:[
+                    {name:"",
+                    pic,
+                    sid,
+                    userId}
+                ]
+            } */
     }
     findRoom = (roomName) => {
         const roomIndex = this.Rooms.findIndex(item => item.roomFullName.split(",")[1] === roomName);

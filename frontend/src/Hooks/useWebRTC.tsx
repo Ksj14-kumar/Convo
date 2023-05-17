@@ -66,7 +66,7 @@ export function useWebRTC(roomName: string | undefined,
         }
         if (tracks && ready) {
             try {
-                roomName && init(roomName)
+                // roomName && init(roomName)
                 setIsReady(true)
             } catch (err) {
                 console.log(err)

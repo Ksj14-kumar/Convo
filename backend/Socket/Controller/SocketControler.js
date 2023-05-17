@@ -16,7 +16,7 @@ class SocketController {
         freetalk.emit("new_room_added", { ...newRoomCreateInfo, roomFullName: roomName });
     };
 
-    onRoomJoin = async (value, callback, freetalk, socket) => {
+    onRoomJoin = async (value, callback, freetalk, socket, rtpCapabilities) => {
         if ((value.email || value.userId) && value.roomName) {
             //TODO: db operations,do separate for test cases
             const getUserFromDB = await User.findOne({ $or: [{ email: value.email }, { userId: value.userId }] });
@@ -31,7 +31,7 @@ class SocketController {
                 const isroomFull = isRoomFull(value.roomName);
                 // TODO:check user limit in room
                 if (isroomFull) {
-                    callback(403);
+                    callback({ status: 403, message: "room is full" });
                     return;
                 }
                 else {
@@ -43,22 +43,22 @@ class SocketController {
                     freetalk.emit("newUserAdded", { ...userInfoFromBD, roomName: value.roomName });
                     console.log(Rooms[0]);
                     const roomFull = isRoomFull(value.roomName);
-                    callback(200);
+                    callback({ status: 200, message: rtpCapabilities });
                     if (roomFull) {
                         freetalk.emit("isRoomFull", true);
                     }
                 }
             }
             else {
-                callback(404);
+                callback({ status: 404, message: "invalid user" });
             }
         }
         else {
-            callback(400);
+            callback({ status: 400, message: "bad request" });
         }
     };
 
-    onLeaveRoom = (params,socket,freetalk) => {
+    onLeaveRoom = (params, socket, freetalk) => {
         console.log({ params });
         const returnValue = removeUserFromRoom({ ...params }, params.roomName);
         if (returnValue) {

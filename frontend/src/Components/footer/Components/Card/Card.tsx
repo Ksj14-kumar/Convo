@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom"
 import { roomType, userTypeInRoom } from '../../../../Redux/types';
 import { Socket } from 'socket.io-client';
 import { useAppSelector } from '../../../../Redux/store';
+import { RtpCapabilities } from 'mediasoup-client/lib/RtpParameters';
 const ringColors = [
     "[#D21312]",
     "[#fff]",
@@ -71,9 +72,10 @@ const ringColors = [
 
 type propType = {
     item: roomType,
-    socket: Socket
+    socket: Socket,
+    setRTPInfo: React.Dispatch<React.SetStateAction<RtpCapabilities>>
 }
-function Card({ item, socket }: propType) {
+function Card({ item, socket, setRTPInfo }: propType) {
     const userinfo = useAppSelector((state) => state.auth)
     const [joinStatus, setJoinStatus] = useState<boolean>(false)
     // img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15, img16, img17, img17
@@ -116,14 +118,15 @@ function Card({ item, socket }: propType) {
                     // disabled={joinStatus}
                     className="btn  text-lg w-[16rem] outline-dashed outline-[2.5px] outline-offset-[4px] outline-[#f0d229] bg-gradient-to-r from-[#0ab4cea9] via-[#07cceb] to-[#0d93a8] animate-pulse"
                     onClick={() => {
-                        socket.emit("on_join", { ...userinfo, roomName: item.roomFullName }, (status: number) => {
+                        socket.emit("on_join", { ...userinfo, roomName: item.roomFullName }, (status: { status: number, message: string | RtpCapabilities }) => {
                             console.log({ status })
-                            if (status === 400 || status === 404) {
+                            if (status.status === 400 || status.status === 404) {
                             }
-                            else if (status === 200) {
+                            else if (status.status === 200 && typeof status.message !== "string") {
                                 navigate(`/room/${item.roomFullName}`)
+                                setRTPInfo(status.message)
                             }
-                            else if (status === 403) {
+                            else if (status.status === 403) {
                                 alert("you can not join room, room is fulll")
                             }
                         })
